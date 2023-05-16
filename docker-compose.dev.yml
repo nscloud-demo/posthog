@@ -53,6 +53,7 @@ services:
             service: kafka
         ports:
             - '9092:9092'
+            - '29092:29092'
 
     object_storage:
         extends:

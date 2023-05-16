@@ -162,7 +162,7 @@ READONLY_CLICKHOUSE_PASSWORD = os.getenv("READONLY_CLICKHOUSE_PASSWORD", None)
 _parse_kafka_hosts = lambda kafka_url: ",".join(urlparse(host).netloc for host in kafka_url.split(","))
 
 # URL(s) used by Kafka clients/producers - KEEP IN SYNC WITH plugin-server/src/config/config.ts
-KAFKA_URL = os.getenv("KAFKA_URL", "kafka://kafka:9092")
+KAFKA_URL = os.getenv("KAFKA_URL", "kafka://kafka:9092,kafka://localhost:29092")
 KAFKA_HOSTS = _parse_kafka_hosts(KAFKA_URL)
 
 # To support e.g. Multi-tenanted plans on Heroko, we support specifying a prefix for
