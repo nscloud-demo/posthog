@@ -42,9 +42,9 @@ def test_can_migrate_data_from_one_topic_to_another_on_a_different_cluster():
         "--to-topic",
         new_events_topic,
         "--from-cluster",
-        "localhost:9092",
+        "localhost:29092",
         "--to-cluster",
-        "localhost:9092",
+        "localhost:29092",
         "--consumer-group-id",
         consumer_group_id,
         # Include all the options so we check they can be passed in
@@ -69,9 +69,9 @@ def test_can_migrate_data_from_one_topic_to_another_on_a_different_cluster():
         "--to-topic",
         new_events_topic,
         "--from-cluster",
-        "localhost:9092",
+        "localhost:29092",
         "--to-cluster",
-        "localhost:9092",
+        "localhost:29092",
         "--consumer-group-id",
         consumer_group_id,
     )
@@ -103,9 +103,9 @@ def test_we_do_not_migrate_when_dry_run_is_set():
         "--to-topic",
         new_events_topic,
         "--from-cluster",
-        "localhost:9092",
+        "localhost:29092",
         "--to-cluster",
-        "localhost:9092",
+        "localhost:29092",
         "--consumer-group-id",
         consumer_group_id,
         "--dry-run",
@@ -137,9 +137,9 @@ def test_cannot_send_data_back_into_same_topic_on_same_cluster():
             "--to-topic",
             topic,
             "--from-cluster",
-            "localhost:9092",
+            "localhost:29092",
             "--to-cluster",
-            "localhost:9092",
+            "localhost:29092",
             "--consumer-group-id",
             consumer_group_id,
         )
@@ -170,9 +170,9 @@ def test_that_the_command_fails_if_the_specified_consumer_group_does_not_exist()
             "--to-topic",
             new_topic,
             "--from-cluster",
-            "localhost:9092",
+            "localhost:29092",
             "--to-cluster",
-            "localhost:9092",
+            "localhost:29092",
             "--consumer-group-id",
             "nonexistent-consumer-group",
         )
@@ -204,9 +204,9 @@ def test_that_we_error_if_the_target_topic_doesnt_exist():
             "--to-topic",
             new_topic,
             "--from-cluster",
-            "localhost:9092",
+            "localhost:29092",
             "--to-cluster",
-            "localhost:9092",
+            "localhost:29092",
             "--consumer-group-id",
             consumer_group_id,
         )
@@ -254,9 +254,9 @@ def test_we_fail_on_send_errors_to_new_topic():
                 "--to-topic",
                 new_topic,
                 "--from-cluster",
-                "localhost:9092",
+                "localhost:29092",
                 "--to-cluster",
-                "localhost:9092",
+                "localhost:29092",
                 "--consumer-group-id",
                 consumer_group_id,
             )
@@ -273,9 +273,9 @@ def test_we_fail_on_send_errors_to_new_topic():
         "--to-topic",
         new_topic,
         "--from-cluster",
-        "localhost:9092",
+        "localhost:29092",
         "--to-cluster",
-        "localhost:9092",
+        "localhost:29092",
         "--consumer-group-id",
         consumer_group_id,
     )
@@ -288,7 +288,7 @@ def test_we_fail_on_send_errors_to_new_topic():
 def _commit_offsets_for_topic(topic, consumer_group_id):
     kafka_consumer = KafkaConsumer(
         topic,
-        bootstrap_servers="localhost:9092",
+        bootstrap_servers="localhost:29092",
         auto_offset_reset="latest",
         group_id=consumer_group_id,
     )
@@ -307,7 +307,7 @@ def _wait_for_message(topic: str, key: str):
     """
     new_kafka_consumer = KafkaConsumer(
         topic,
-        bootstrap_servers="localhost:9092",
+        bootstrap_servers="localhost:29092",
         auto_offset_reset="earliest",
         group_id="test",
     )
@@ -328,7 +328,7 @@ def _wait_for_message(topic: str, key: str):
 
 
 def _send_message(topic, value, key, headers):
-    producer = KafkaProducer(bootstrap_servers="localhost:9092")
+    producer = KafkaProducer(bootstrap_servers="localhost:29092")
 
     try:
         producer.send(topic, value, key, headers).get()
@@ -338,7 +338,7 @@ def _send_message(topic, value, key, headers):
 
 
 def _create_topic(topic):
-    admin_client = KafkaAdminClient(bootstrap_servers="localhost:9092")
+    admin_client = KafkaAdminClient(bootstrap_servers="localhost:29092")
 
     try:
         admin_client.create_topics([NewTopic(topic, num_partitions=1, replication_factor=1)])
